@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 def load_data(filename):
     """Load dataset. Returns labels (N,) and features (N, M)."""
@@ -151,12 +152,19 @@ def main():
 
     print("Beginning search.\n")
 
+    t_start = time.perf_counter()
+
     if choice == 1:
         best_acc, best_subset = forward_selection(labels, features)
     if choice == 2:
         best_acc, best_subset = backward_elimination(labels, features)
     
-    print(f"Finished search! Overall best accuracy was {best_acc} with feature subset {best_subset}")
+    t_end = time.perf_counter()
+
+    print(f"Finished search in {t_end - t_start:.6f} seconds! Overall best accuracy was {best_acc} with feature subset {best_subset}")
+
+
+
 
 if __name__ == "__main__":
     main()
