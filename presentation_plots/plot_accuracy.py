@@ -15,51 +15,71 @@ plt.rcParams["axes.facecolor"] = "white"
 plt.rcParams["figure.facecolor"] = BG
 
 
-def parse_baseline(filepath):
+def read_lines(filepath):
+    """Read lines, stripping Windows carriage returns."""
+    with open(filepath, encoding="utf-8", errors="replace") as f:
+        return [line.rstrip("\r\n") for line in f]
+
+
+def parse_baseline(lines):
     pattern = re.compile(r"we get an accuracy of ([\d.]+)")
-    with open(filepath) as f:
-        for line in f:
-            m = pattern.search(line)
-            if m:
-                return float(m.group(1)) * 100
+    for line in lines:
+        m = pattern.search(line)
+        if m:
+            return float(m.group(1)) * 100
+    return None
+
+
+def parse_overall_best_n(lines):
+    """Get the number of features in the overall best subset."""
+    pattern = re.compile(r"Overall best accuracy was ([\d.]+) with feature subset \{([^}]+)\}")
+    for line in lines:
+        m = pattern.search(line)
+        if m:
+            return len(m.group(2).split(","))
     return None
 
 
 def parse_log(filepath):
-    steps = []
-    pattern = re.compile(r"^\s*best accuracy was ([\d.]+) with feature\(s\) \{([^}]+)\}")
-    with open(filepath) as f:
-        for line in f:
-            m = pattern.match(line)
-            if m:
-                acc = float(m.group(1)) * 100
-                num_features = len(m.group(2).split(","))
-                steps.append((num_features, acc))
+    lines = read_lines(filepath)
+    baseline = parse_baseline(lines)
+    best_n = parse_overall_best_n(lines)
 
-    if not steps:
-        return parse_baseline(filepath), steps
+    all_steps = []
+    pattern = re.compile(r"^best accuracy was ([\d.]+) with feature\(s\) \{([^}]+)\}")
+    for line in lines:
+        m = pattern.match(line)
+        if m:
+            acc = float(m.group(1)) * 100
+            n = len(m.group(2).split(","))
+            all_steps.append((n, acc))
 
-    # Detect direction: forward (increasing) or backward (decreasing)
-    # Use the first two steps to determine
-    if len(steps) > 1 and steps[1][0] > steps[0][0]:
-        # Forward: keep only steps where feature count strictly increases
-        filtered = [steps[0]]
-        for s in steps[1:]:
-            if s[0] == filtered[-1][0] + 1:
-                filtered.append(s)
-            elif s[0] > filtered[-1][0] + 1:
-                break  # gap means we've left the clean forward steps
-    else:
-        # Backward: keep only steps where feature count strictly decreases
-        filtered = [steps[0]]
-        for s in steps[1:]:
-            if s[0] == filtered[-1][0] - 1:
-                filtered.append(s)
-            elif s[0] < filtered[-1][0] - 1:
+    if not all_steps:
+        return baseline, []
+
+    counts = [s[0] for s in all_steps]
+    is_forward = len(counts) > 1 and counts[1] > counts[0]
+
+    if is_forward and best_n:
+        # Keep one step per depth 1,2,...,best_n in order
+        clean = []
+        expected = 1
+        for n, acc in all_steps:
+            if n == expected:
+                clean.append((n, acc))
+                expected += 1
+            if expected > best_n:
                 break
+        steps = clean
+    else:
+        # Backward: deduplicate by feature count, keep first occurrence
+        seen = {}
+        for n, acc in all_steps:
+            if n not in seen:
+                seen[n] = acc
+        steps = sorted(seen.items(), key=lambda x: x[0], reverse=True)
 
-    baseline = parse_baseline(filepath)
-    return baseline, filtered
+    return baseline, steps
 
 
 def plot_forward(baseline, steps, outfile="forward_accuracy.png"):
@@ -67,11 +87,10 @@ def plot_forward(baseline, steps, outfile="forward_accuracy.png"):
     ys = [s[1] for s in steps]
     peak_idx = ys.index(max(ys))
 
-    fig, ax = plt.subplots(figsize=(16, 7))
+    fig, ax = plt.subplots(figsize=(14, 6))
     ax.plot(xs, ys, color=ACCENT, linewidth=2.5, marker="o",
             markersize=8, markerfacecolor=ACCENT, zorder=3)
 
-    # Label every point 
     for i, (x, y) in enumerate(zip(xs, ys)):
         offset = 13 if i % 2 == 0 else -20
         ax.annotate(f"{y:.2f}%", xy=(x, y), xytext=(0, offset),
@@ -83,7 +102,6 @@ def plot_forward(baseline, steps, outfile="forward_accuracy.png"):
                    label=f"Baseline ({baseline:.2f}%)")
         ax.legend(fontsize=11)
 
-    # Highlight peak
     ax.plot(xs[peak_idx], ys[peak_idx], "o", color=ACCENT,
             markersize=13, markeredgecolor=NAVY, markeredgewidth=2.5, zorder=4)
 
@@ -104,9 +122,8 @@ def plot_forward(baseline, steps, outfile="forward_accuracy.png"):
 
 
 def plot_backward(baseline, steps, outfile="backward_accuracy.png"):
-    steps_sorted = sorted(steps, key=lambda x: x[0], reverse=True)
-    xs = [s[0] for s in steps_sorted]
-    ys = [s[1] for s in steps_sorted]
+    xs = [s[0] for s in steps]
+    ys = [s[1] for s in steps]
 
     if baseline and xs[0] != 30:
         xs = [30] + xs
@@ -114,7 +131,7 @@ def plot_backward(baseline, steps, outfile="backward_accuracy.png"):
 
     peak_idx = ys.index(max(ys))
 
-    fig, ax = plt.subplots(figsize=(18, 7))
+    fig, ax = plt.subplots(figsize=(18, 6))
     ax.plot(xs, ys, color=NAVY, linewidth=2.5, marker="o",
             markersize=8, markerfacecolor=NAVY, zorder=3)
 
@@ -129,7 +146,6 @@ def plot_backward(baseline, steps, outfile="backward_accuracy.png"):
                    label=f"Baseline ({baseline:.2f}%)")
         ax.legend(fontsize=11)
 
-    # Highlight peak
     ax.plot(xs[peak_idx], ys[peak_idx], "o", color=NAVY,
             markersize=13, markeredgecolor=ACCENT, markeredgewidth=2.5, zorder=4)
 
@@ -153,12 +169,12 @@ def plot_backward(baseline, steps, outfile="backward_accuracy.png"):
 def plot_comparison(fwd_baseline, fwd_steps, bwd_steps, outfile="accuracy_comparison.png"):
     fwd_best = max(s[1] for s in fwd_steps)
     bwd_best = max(s[1] for s in bwd_steps)
-    baseline = fwd_baseline
+    baseline  = fwd_baseline
 
-    fwd_n = fwd_steps[-1][0]
+    fwd_n = max(s[0] for s in fwd_steps if s[1] == fwd_best)
     bwd_n = min(s[0] for s in bwd_steps if s[1] == bwd_best)
 
-    labels = ["Baseline\n(all features)",
+    labels = ["Baseline\n(all 30 features)",
               f"Forward Selection\n({fwd_n} features)",
               f"Backward Elimination\n({bwd_n} features)"]
     values = [baseline, fwd_best, bwd_best]
@@ -186,7 +202,7 @@ def plot_comparison(fwd_baseline, fwd_steps, bwd_steps, outfile="accuracy_compar
     print(f"Saved: {outfile}")
 
 
-# Main
+# ── Main ──────────────────────────────────────────────────────────────────
 if len(sys.argv) != 3:
     print("Usage: python plot_accuracy.py forward_log.txt backward_log.txt")
     sys.exit(1)
