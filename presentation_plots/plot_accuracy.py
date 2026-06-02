@@ -169,10 +169,15 @@ def plot_backward(baseline, steps, outfile="backward_accuracy.png"):
 def plot_comparison(fwd_baseline, fwd_steps, bwd_steps, outfile="accuracy_comparison.png"):
     fwd_best = max(s[1] for s in fwd_steps)
     bwd_best = max(s[1] for s in bwd_steps)
-    baseline  = fwd_baseline
+    baseline = fwd_baseline
 
+    # Forward Selection: keep your original logic or match peak
     fwd_n = max(s[0] for s in fwd_steps if s[1] == fwd_best)
-    bwd_n = min(s[0] for s in bwd_steps if s[1] == bwd_best)
+    
+    # FIX: Get the feature count of the final state where the algorithm actually stopped.
+    # Instead of min(), we look at the last item in the chronological steps list 
+    # where the maximum accuracy was sustained.
+    bwd_n = [s[0] for s in bwd_steps if s[1] == bwd_best][-1]
 
     labels = ["Baseline\n(all 30 features)",
               f"Forward Selection\n({fwd_n} features)",
@@ -202,7 +207,7 @@ def plot_comparison(fwd_baseline, fwd_steps, bwd_steps, outfile="accuracy_compar
     print(f"Saved: {outfile}")
 
 
-# ── Main ──────────────────────────────────────────────────────────────────
+# Main
 if len(sys.argv) != 3:
     print("Usage: python plot_accuracy.py forward_log.txt backward_log.txt")
     sys.exit(1)
