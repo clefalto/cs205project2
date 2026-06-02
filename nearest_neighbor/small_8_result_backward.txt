@@ -1,0 +1,70 @@
+Welcome to our feature selection algorithm!
+
+Type the name of the file to test (should be in the same folder): 
+Select the algorithm you want to run: 
+	1) Forward selection
+	2) Backward elimination
+
+This dataset has 8 features (not including the class attribute), with 700 instances.
+Running nearest neighbor with all 8 features, using leave one out cross validation, we get an accuracy of 0.7942857142857143
+
+Beginning search.
+
+	using feature(s) {1, 2, 3, 4, 5, 6, 7} the accuracy is 0.7314285714285714
+	using feature(s) {0, 2, 3, 4, 5, 6, 7} the accuracy is 0.81
+	using feature(s) {0, 1, 3, 4, 5, 6, 7} the accuracy is 0.7428571428571429
+	using feature(s) {0, 1, 2, 4, 5, 6, 7} the accuracy is 0.8157142857142857
+	using feature(s) {0, 1, 2, 3, 5, 6, 7} the accuracy is 0.8228571428571428
+	using feature(s) {0, 1, 2, 3, 4, 6, 7} the accuracy is 0.8257142857142857
+	using feature(s) {0, 1, 2, 3, 4, 5, 7} the accuracy is 0.8085714285714286
+	using feature(s) {0, 1, 2, 3, 4, 5, 6} the accuracy is 0.8157142857142857
+
+best accuracy was 0.8257142857142857 with feature(s) {0, 1, 2, 3, 4, 6, 7} (removed feature 5)
+
+	using feature(s) {1, 2, 3, 4, 6, 7} the accuracy is 0.7542857142857143
+	using feature(s) {0, 2, 3, 4, 6, 7} the accuracy is 0.84
+	using feature(s) {0, 1, 3, 4, 6, 7} the accuracy is 0.7671428571428571
+	using feature(s) {0, 1, 2, 4, 6, 7} the accuracy is 0.86
+	using feature(s) {0, 1, 2, 3, 6, 7} the accuracy is 0.8485714285714285
+	using feature(s) {0, 1, 2, 3, 4, 7} the accuracy is 0.8571428571428571
+	using feature(s) {0, 1, 2, 3, 4, 6} the accuracy is 0.8528571428571429
+
+best accuracy was 0.86 with feature(s) {0, 1, 2, 4, 6, 7} (removed feature 3)
+
+	using feature(s) {1, 2, 4, 6, 7} the accuracy is 0.7657142857142857
+	using feature(s) {0, 2, 4, 6, 7} the accuracy is 0.8785714285714286
+	using feature(s) {0, 1, 4, 6, 7} the accuracy is 0.8142857142857143
+	using feature(s) {0, 1, 2, 6, 7} the accuracy is 0.8828571428571429
+	using feature(s) {0, 1, 2, 4, 7} the accuracy is 0.86
+	using feature(s) {0, 1, 2, 4, 6} the accuracy is 0.8842857142857142
+
+best accuracy was 0.8842857142857142 with feature(s) {0, 1, 2, 4, 6} (removed feature 7)
+
+	using feature(s) {1, 2, 4, 6} the accuracy is 0.73
+	using feature(s) {0, 2, 4, 6} the accuracy is 0.9014285714285715
+	using feature(s) {0, 1, 4, 6} the accuracy is 0.8257142857142857
+	using feature(s) {0, 1, 2, 6} the accuracy is 0.9128571428571428
+	using feature(s) {0, 1, 2, 4} the accuracy is 0.9042857142857142
+
+best accuracy was 0.9128571428571428 with feature(s) {0, 1, 2, 6} (removed feature 4)
+
+	using feature(s) {1, 2, 6} the accuracy is 0.7285714285714285
+	using feature(s) {0, 2, 6} the accuracy is 0.94
+	using feature(s) {0, 1, 6} the accuracy is 0.8442857142857143
+	using feature(s) {0, 1, 2} the accuracy is 0.9385714285714286
+
+best accuracy was 0.94 with feature(s) {0, 2, 6} (removed feature 1)
+
+	using feature(s) {2, 6} the accuracy is 0.7414285714285714
+	using feature(s) {0, 6} the accuracy is 0.8085714285714286
+	using feature(s) {0, 2} the accuracy is 0.9728571428571429
+
+best accuracy was 0.9728571428571429 with feature(s) {0, 2} (removed feature 6)
+
+	using feature(s) {2} the accuracy is 0.7528571428571429
+	using feature(s) {0} the accuracy is 0.8528571428571429
+Accuracy has decreased! (0.9728571428571429 -> 0.8528571428571429) Continuing with the best feature from this depth in case of local minima
+
+best accuracy was 0.8528571428571429 with feature(s) {0} (removed feature 2)
+
+Finished search in 48.800884 seconds! Overall best accuracy was 0.9728571428571429 with feature subset {0, 2}

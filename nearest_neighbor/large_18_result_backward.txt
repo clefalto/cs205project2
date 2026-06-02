@@ -1,0 +1,235 @@
+Welcome to our feature selection algorithm!
+
+Type the name of the file to test (should be in the same folder): 
+Select the algorithm you want to run: 
+	1) Forward selection
+	2) Backward elimination
+
+This dataset has 18 features (not including the class attribute), with 3000 instances.
+Running nearest neighbor with all 18 features, using leave one out cross validation, we get an accuracy of 0.7196666666666667
+
+Beginning search.
+
+	using feature(s) {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.736
+	using feature(s) {0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7056666666666667
+	using feature(s) {0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7196666666666667
+	using feature(s) {0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7406666666666667
+	using feature(s) {0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.727
+	using feature(s) {0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7166666666666667
+	using feature(s) {0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7096666666666667
+	using feature(s) {0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7263333333333334
+	using feature(s) {0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.723
+	using feature(s) {0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.727
+	using feature(s) {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.721
+	using feature(s) {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17} the accuracy is 0.7213333333333334
+	using feature(s) {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17} the accuracy is 0.7326666666666667
+	using feature(s) {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17} the accuracy is 0.6843333333333333
+	using feature(s) {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17} the accuracy is 0.7346666666666667
+	using feature(s) {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17} the accuracy is 0.7403333333333333
+	using feature(s) {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17} the accuracy is 0.718
+	using feature(s) {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16} the accuracy is 0.7226666666666667
+
+best accuracy was 0.7406666666666667 with feature(s) {0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} (removed feature 3)
+
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7483333333333333
+	using feature(s) {0, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.72
+	using feature(s) {0, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7393333333333333
+	using feature(s) {0, 1, 2, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7376666666666667
+	using feature(s) {0, 1, 2, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7253333333333334
+	using feature(s) {0, 1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7256666666666667
+	using feature(s) {0, 1, 2, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7403333333333333
+	using feature(s) {0, 1, 2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7326666666666667
+	using feature(s) {0, 1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7466666666666667
+	using feature(s) {0, 1, 2, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7333333333333333
+	using feature(s) {0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17} the accuracy is 0.733
+	using feature(s) {0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17} the accuracy is 0.746
+	using feature(s) {0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17} the accuracy is 0.693
+	using feature(s) {0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17} the accuracy is 0.7346666666666667
+	using feature(s) {0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17} the accuracy is 0.748
+	using feature(s) {0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17} the accuracy is 0.7253333333333334
+	using feature(s) {0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16} the accuracy is 0.7266666666666667
+
+best accuracy was 0.7483333333333333 with feature(s) {1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} (removed feature 0)
+
+	using feature(s) {2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7276666666666667
+	using feature(s) {1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7526666666666667
+	using feature(s) {1, 2, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.749
+	using feature(s) {1, 2, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7373333333333333
+	using feature(s) {1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7406666666666667
+	using feature(s) {1, 2, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7416666666666667
+	using feature(s) {1, 2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7443333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7593333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7406666666666667
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17} the accuracy is 0.746
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17} the accuracy is 0.7523333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17} the accuracy is 0.7006666666666667
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17} the accuracy is 0.752
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17} the accuracy is 0.7543333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17} the accuracy is 0.737
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16} the accuracy is 0.749
+
+best accuracy was 0.7593333333333333 with feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17} (removed feature 9)
+
+	using feature(s) {2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7313333333333333
+	using feature(s) {1, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7533333333333333
+	using feature(s) {1, 2, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7526666666666667
+	using feature(s) {1, 2, 4, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7563333333333333
+	using feature(s) {1, 2, 4, 5, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.755
+	using feature(s) {1, 2, 4, 5, 6, 8, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7443333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7583333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17} the accuracy is 0.7573333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 12, 13, 14, 15, 16, 17} the accuracy is 0.7583333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 13, 14, 15, 16, 17} the accuracy is 0.7656666666666667
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 14, 15, 16, 17} the accuracy is 0.7016666666666667
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 15, 16, 17} the accuracy is 0.758
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17} the accuracy is 0.766
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 17} the accuracy is 0.744
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16} the accuracy is 0.7423333333333333
+
+best accuracy was 0.766 with feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17} (removed feature 15)
+
+	using feature(s) {2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17} the accuracy is 0.738
+	using feature(s) {1, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17} the accuracy is 0.7636666666666667
+	using feature(s) {1, 2, 5, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17} the accuracy is 0.7623333333333333
+	using feature(s) {1, 2, 4, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17} the accuracy is 0.7533333333333333
+	using feature(s) {1, 2, 4, 5, 7, 8, 10, 11, 12, 13, 14, 16, 17} the accuracy is 0.764
+	using feature(s) {1, 2, 4, 5, 6, 8, 10, 11, 12, 13, 14, 16, 17} the accuracy is 0.7406666666666667
+	using feature(s) {1, 2, 4, 5, 6, 7, 10, 11, 12, 13, 14, 16, 17} the accuracy is 0.765
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 11, 12, 13, 14, 16, 17} the accuracy is 0.7653333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 12, 13, 14, 16, 17} the accuracy is 0.7616666666666667
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 13, 14, 16, 17} the accuracy is 0.772
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 14, 16, 17} the accuracy is 0.7163333333333334
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 16, 17} the accuracy is 0.7603333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 17} the accuracy is 0.746
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 16} the accuracy is 0.7546666666666667
+
+best accuracy was 0.772 with feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 13, 14, 16, 17} (removed feature 12)
+
+	using feature(s) {2, 4, 5, 6, 7, 8, 10, 11, 13, 14, 16, 17} the accuracy is 0.7456666666666667
+	using feature(s) {1, 4, 5, 6, 7, 8, 10, 11, 13, 14, 16, 17} the accuracy is 0.7786666666666666
+	using feature(s) {1, 2, 5, 6, 7, 8, 10, 11, 13, 14, 16, 17} the accuracy is 0.7736666666666666
+	using feature(s) {1, 2, 4, 6, 7, 8, 10, 11, 13, 14, 16, 17} the accuracy is 0.7786666666666666
+	using feature(s) {1, 2, 4, 5, 7, 8, 10, 11, 13, 14, 16, 17} the accuracy is 0.7706666666666667
+	using feature(s) {1, 2, 4, 5, 6, 8, 10, 11, 13, 14, 16, 17} the accuracy is 0.7653333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 10, 11, 13, 14, 16, 17} the accuracy is 0.77
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 11, 13, 14, 16, 17} the accuracy is 0.7736666666666666
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 13, 14, 16, 17} the accuracy is 0.7793333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 14, 16, 17} the accuracy is 0.7083333333333334
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 13, 16, 17} the accuracy is 0.7793333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 13, 14, 17} the accuracy is 0.7663333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 11, 13, 14, 16} the accuracy is 0.7696666666666667
+
+best accuracy was 0.7793333333333333 with feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 13, 14, 16, 17} (removed feature 11)
+
+	using feature(s) {2, 4, 5, 6, 7, 8, 10, 13, 14, 16, 17} the accuracy is 0.75
+	using feature(s) {1, 4, 5, 6, 7, 8, 10, 13, 14, 16, 17} the accuracy is 0.7863333333333333
+	using feature(s) {1, 2, 5, 6, 7, 8, 10, 13, 14, 16, 17} the accuracy is 0.7806666666666666
+	using feature(s) {1, 2, 4, 6, 7, 8, 10, 13, 14, 16, 17} the accuracy is 0.7746666666666666
+	using feature(s) {1, 2, 4, 5, 7, 8, 10, 13, 14, 16, 17} the accuracy is 0.7776666666666666
+	using feature(s) {1, 2, 4, 5, 6, 8, 10, 13, 14, 16, 17} the accuracy is 0.7766666666666666
+	using feature(s) {1, 2, 4, 5, 6, 7, 10, 13, 14, 16, 17} the accuracy is 0.7943333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 13, 14, 16, 17} the accuracy is 0.787
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 14, 16, 17} the accuracy is 0.721
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 13, 16, 17} the accuracy is 0.7833333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 13, 14, 17} the accuracy is 0.7753333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 8, 10, 13, 14, 16} the accuracy is 0.7796666666666666
+
+best accuracy was 0.7943333333333333 with feature(s) {1, 2, 4, 5, 6, 7, 10, 13, 14, 16, 17} (removed feature 8)
+
+	using feature(s) {2, 4, 5, 6, 7, 10, 13, 14, 16, 17} the accuracy is 0.7443333333333333
+	using feature(s) {1, 4, 5, 6, 7, 10, 13, 14, 16, 17} the accuracy is 0.795
+	using feature(s) {1, 2, 5, 6, 7, 10, 13, 14, 16, 17} the accuracy is 0.8016666666666666
+	using feature(s) {1, 2, 4, 6, 7, 10, 13, 14, 16, 17} the accuracy is 0.7933333333333333
+	using feature(s) {1, 2, 4, 5, 7, 10, 13, 14, 16, 17} the accuracy is 0.7983333333333333
+	using feature(s) {1, 2, 4, 5, 6, 10, 13, 14, 16, 17} the accuracy is 0.7946666666666666
+	using feature(s) {1, 2, 4, 5, 6, 7, 13, 14, 16, 17} the accuracy is 0.796
+	using feature(s) {1, 2, 4, 5, 6, 7, 10, 14, 16, 17} the accuracy is 0.7116666666666667
+	using feature(s) {1, 2, 4, 5, 6, 7, 10, 13, 16, 17} the accuracy is 0.7953333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 10, 13, 14, 17} the accuracy is 0.7833333333333333
+	using feature(s) {1, 2, 4, 5, 6, 7, 10, 13, 14, 16} the accuracy is 0.7956666666666666
+
+best accuracy was 0.8016666666666666 with feature(s) {1, 2, 5, 6, 7, 10, 13, 14, 16, 17} (removed feature 4)
+
+	using feature(s) {2, 5, 6, 7, 10, 13, 14, 16, 17} the accuracy is 0.753
+	using feature(s) {1, 5, 6, 7, 10, 13, 14, 16, 17} the accuracy is 0.811
+	using feature(s) {1, 2, 6, 7, 10, 13, 14, 16, 17} the accuracy is 0.802
+	using feature(s) {1, 2, 5, 7, 10, 13, 14, 16, 17} the accuracy is 0.8076666666666666
+	using feature(s) {1, 2, 5, 6, 10, 13, 14, 16, 17} the accuracy is 0.8133333333333334
+	using feature(s) {1, 2, 5, 6, 7, 13, 14, 16, 17} the accuracy is 0.8163333333333334
+	using feature(s) {1, 2, 5, 6, 7, 10, 14, 16, 17} the accuracy is 0.713
+	using feature(s) {1, 2, 5, 6, 7, 10, 13, 16, 17} the accuracy is 0.819
+	using feature(s) {1, 2, 5, 6, 7, 10, 13, 14, 17} the accuracy is 0.7976666666666666
+	using feature(s) {1, 2, 5, 6, 7, 10, 13, 14, 16} the accuracy is 0.8166666666666667
+
+best accuracy was 0.819 with feature(s) {1, 2, 5, 6, 7, 10, 13, 16, 17} (removed feature 14)
+
+	using feature(s) {2, 5, 6, 7, 10, 13, 16, 17} the accuracy is 0.7653333333333333
+	using feature(s) {1, 5, 6, 7, 10, 13, 16, 17} the accuracy is 0.8273333333333334
+	using feature(s) {1, 2, 6, 7, 10, 13, 16, 17} the accuracy is 0.8163333333333334
+	using feature(s) {1, 2, 5, 7, 10, 13, 16, 17} the accuracy is 0.8293333333333334
+	using feature(s) {1, 2, 5, 6, 10, 13, 16, 17} the accuracy is 0.8163333333333334
+	using feature(s) {1, 2, 5, 6, 7, 13, 16, 17} the accuracy is 0.8276666666666667
+	using feature(s) {1, 2, 5, 6, 7, 10, 16, 17} the accuracy is 0.7136666666666667
+	using feature(s) {1, 2, 5, 6, 7, 10, 13, 17} the accuracy is 0.8313333333333334
+	using feature(s) {1, 2, 5, 6, 7, 10, 13, 16} the accuracy is 0.8316666666666667
+
+best accuracy was 0.8316666666666667 with feature(s) {1, 2, 5, 6, 7, 10, 13, 16} (removed feature 17)
+
+	using feature(s) {2, 5, 6, 7, 10, 13, 16} the accuracy is 0.7846666666666666
+	using feature(s) {1, 5, 6, 7, 10, 13, 16} the accuracy is 0.8553333333333333
+	using feature(s) {1, 2, 6, 7, 10, 13, 16} the accuracy is 0.8373333333333334
+	using feature(s) {1, 2, 5, 7, 10, 13, 16} the accuracy is 0.8423333333333334
+	using feature(s) {1, 2, 5, 6, 10, 13, 16} the accuracy is 0.85
+	using feature(s) {1, 2, 5, 6, 7, 13, 16} the accuracy is 0.8416666666666667
+	using feature(s) {1, 2, 5, 6, 7, 10, 16} the accuracy is 0.7276666666666667
+	using feature(s) {1, 2, 5, 6, 7, 10, 13} the accuracy is 0.8533333333333334
+
+best accuracy was 0.8553333333333333 with feature(s) {1, 5, 6, 7, 10, 13, 16} (removed feature 2)
+
+	using feature(s) {16, 5, 6, 7, 10, 13} the accuracy is 0.7936666666666666
+	using feature(s) {16, 1, 6, 7, 10, 13} the accuracy is 0.8546666666666667
+	using feature(s) {16, 1, 5, 7, 10, 13} the accuracy is 0.8763333333333333
+	using feature(s) {16, 1, 5, 6, 10, 13} the accuracy is 0.865
+	using feature(s) {16, 1, 5, 6, 7, 13} the accuracy is 0.8766666666666667
+	using feature(s) {16, 1, 5, 6, 7, 10} the accuracy is 0.7433333333333333
+	using feature(s) {1, 5, 6, 7, 10, 13} the accuracy is 0.8793333333333333
+
+best accuracy was 0.8793333333333333 with feature(s) {1, 5, 6, 7, 10, 13} (removed feature 16)
+
+	using feature(s) {5, 6, 7, 10, 13} the accuracy is 0.819
+	using feature(s) {1, 6, 7, 10, 13} the accuracy is 0.8886666666666667
+	using feature(s) {1, 5, 7, 10, 13} the accuracy is 0.8943333333333333
+	using feature(s) {1, 5, 6, 10, 13} the accuracy is 0.9033333333333333
+	using feature(s) {1, 5, 6, 7, 13} the accuracy is 0.908
+	using feature(s) {1, 5, 6, 7, 10} the accuracy is 0.7323333333333333
+
+best accuracy was 0.908 with feature(s) {1, 5, 6, 7, 13} (removed feature 10)
+
+	using feature(s) {5, 6, 7, 13} the accuracy is 0.8293333333333334
+	using feature(s) {1, 6, 7, 13} the accuracy is 0.919
+	using feature(s) {1, 5, 7, 13} the accuracy is 0.9333333333333333
+	using feature(s) {1, 5, 6, 13} the accuracy is 0.93
+	using feature(s) {1, 5, 6, 7} the accuracy is 0.7406666666666667
+
+best accuracy was 0.9333333333333333 with feature(s) {1, 5, 7, 13} (removed feature 6)
+
+	using feature(s) {13, 5, 7} the accuracy is 0.8373333333333334
+	using feature(s) {1, 13, 7} the accuracy is 0.9523333333333334
+	using feature(s) {1, 13, 5} the accuracy is 0.9636666666666667
+	using feature(s) {1, 5, 7} the accuracy is 0.7326666666666667
+
+best accuracy was 0.9636666666666667 with feature(s) {1, 5, 13} (removed feature 7)
+
+	using feature(s) {13, 5} the accuracy is 0.8503333333333334
+	using feature(s) {1, 13} the accuracy is 0.9723333333333334
+	using feature(s) {1, 5} the accuracy is 0.7393333333333333
+
+best accuracy was 0.9723333333333334 with feature(s) {1, 13} (removed feature 5)
+
+	using feature(s) {13} the accuracy is 0.834
+	using feature(s) {1} the accuracy is 0.7296666666666667
+Accuracy has decreased! (0.9723333333333334 -> 0.834) Continuing with the best feature from this depth in case of local minima
+
+best accuracy was 0.834 with feature(s) {13} (removed feature 1)
+
+Finished search in 7565.215823 seconds! Overall best accuracy was 0.9723333333333334 with feature subset {1, 13}
