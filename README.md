@@ -10,11 +10,11 @@ Authors:
 - dendrogram/
 
 ### Requirements:
-numpy
-pandas
-matplotlib
-scipy
-ucimlrepo
+- numpy
+- pandas
+- matplotlib
+- scipy
+- ucimlrepo
 
 ### How to Run
 
