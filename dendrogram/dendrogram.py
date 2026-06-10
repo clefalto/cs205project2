@@ -23,7 +23,6 @@ animal_names = zoo.data.ids
 # remove the accursed frog
 # get index of first match of frog
 dupe_index = (animal_names['animal_name'] == 'frog').idxmax()
-print(dupe_index)
 
 animal_names.drop(dupe_index, inplace=True)
 X.drop(dupe_index, inplace=True)
@@ -42,7 +41,7 @@ X = pd.concat([X, legs_oh], axis=1)
 # print(X)
 # print(animal_names)
 
-Z = linkage(pdist(X, 'jaccard'))
+Z = linkage(pdist(X, 'jaccard'), method='complete')
 
 plt.figure(figsize=(25,10))
 plt.title("hierarchical clustering dendrogram")
