@@ -13,10 +13,10 @@ BG     = "#F8F9FF"
 plt.rcParams["font.family"] = "DejaVu Sans"
 plt.rcParams["axes.facecolor"] = "white"
 plt.rcParams["figure.facecolor"] = BG
+plt.rcParams["font.size"] = 13
 
 
 def read_lines(filepath):
-    """Read lines, stripping Windows carriage returns."""
     with open(filepath, encoding="utf-8", errors="replace") as f:
         return [line.rstrip("\r\n") for line in f]
 
@@ -31,7 +31,6 @@ def parse_baseline(lines):
 
 
 def parse_overall_best_n(lines):
-    """Get the number of features in the overall best subset."""
     pattern = re.compile(r"Overall best accuracy was ([\d.]+) with feature subset \{([^}]+)\}")
     for line in lines:
         m = pattern.search(line)
@@ -61,7 +60,6 @@ def parse_log(filepath):
     is_forward = len(counts) > 1 and counts[1] > counts[0]
 
     if is_forward and best_n:
-        # Keep one step per depth 1,2,...,best_n in order
         clean = []
         expected = 1
         for n, acc in all_steps:
@@ -72,7 +70,6 @@ def parse_log(filepath):
                 break
         steps = clean
     else:
-        # Backward: deduplicate by feature count, keep first occurrence
         seen = {}
         for n, acc in all_steps:
             if n not in seen:
@@ -93,14 +90,14 @@ def plot_forward(baseline, steps, outfile="forward_accuracy.png"):
 
     for i, (x, y) in enumerate(zip(xs, ys)):
         offset = 13 if i % 2 == 0 else -20
-        ax.annotate(f"{y:.2f}%", xy=(x, y), xytext=(0, offset),
+        ax.annotate(f"{y:.1f}%", xy=(x, y), xytext=(0, offset),
                     textcoords="offset points", ha="center",
-                    fontsize=9, color="#1a1a2e")
+                    fontsize=13, color="#1a1a2e")
 
     if baseline:
         ax.axhline(baseline, color=GRAY, linewidth=1.2, linestyle="--",
-                   label=f"Baseline ({baseline:.2f}%)")
-        ax.legend(fontsize=11)
+                   label=f"Baseline ({baseline:.1f}%)")
+        ax.legend(fontsize=13)
 
     ax.plot(xs[peak_idx], ys[peak_idx], "o", color=ACCENT,
             markersize=13, markeredgecolor=NAVY, markeredgewidth=2.5, zorder=4)
@@ -108,10 +105,10 @@ def plot_forward(baseline, steps, outfile="forward_accuracy.png"):
     ax.set_xlabel("Number of Features", fontsize=13)
     ax.set_ylabel("LOO-CV Accuracy (%)", fontsize=13)
     ax.set_title("Accuracy vs. Number of Features — Forward Selection",
-                 fontsize=15, fontweight="bold", color=NAVY, pad=15)
+                 fontsize=13, fontweight="bold", color=NAVY, pad=15)
     ax.set_xticks(xs)
-    ax.tick_params(axis="both", labelsize=11)
-    ax.set_ylim(min(ys) - 4, 101)
+    ax.tick_params(axis="both", labelsize=13)
+    ax.set_ylim(min(ys) - 4, 100)
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.0f%%"))
     ax.grid(axis="y", color="#E2E8F0", linewidth=0.8)
     ax.spines[["top", "right"]].set_visible(False)
@@ -135,16 +132,23 @@ def plot_backward(baseline, steps, outfile="backward_accuracy.png"):
     ax.plot(xs, ys, color=NAVY, linewidth=2.5, marker="o",
             markersize=8, markerfacecolor=NAVY, zorder=3)
 
+    prev_y = None
     for i, (x, y) in enumerate(zip(xs, ys)):
+        is_endpoint = (i == 0 or i == len(xs) - 1)
+        changed = (round(y, 1) != round(prev_y, 1)) if prev_y is not None else True
+        if not (is_endpoint or changed):
+            prev_y = y
+            continue
         offset = 13 if i % 2 == 0 else -20
-        ax.annotate(f"{y:.2f}%", xy=(x, y), xytext=(0, offset),
+        ax.annotate(f"{y:.1f}%", xy=(x, y), xytext=(0, offset),
                     textcoords="offset points", ha="center",
-                    fontsize=9, color="#1a1a2e")
+                    fontsize=13, color="#1a1a2e")
+        prev_y = y
 
     if baseline:
         ax.axhline(baseline, color=GRAY, linewidth=1.2, linestyle="--",
-                   label=f"Baseline ({baseline:.2f}%)")
-        ax.legend(fontsize=11)
+                   label=f"Baseline ({baseline:.1f}%)")
+        ax.legend(fontsize=13)
 
     ax.plot(xs[peak_idx], ys[peak_idx], "o", color=NAVY,
             markersize=13, markeredgecolor=ACCENT, markeredgewidth=2.5, zorder=4)
@@ -152,11 +156,11 @@ def plot_backward(baseline, steps, outfile="backward_accuracy.png"):
     ax.set_xlabel("Number of Features Remaining", fontsize=13)
     ax.set_ylabel("LOO-CV Accuracy (%)", fontsize=13)
     ax.set_title("Accuracy vs. Number of Features — Backward Elimination",
-                 fontsize=15, fontweight="bold", color=NAVY, pad=15)
+                 fontsize=13, fontweight="bold", color=NAVY, pad=15)
     ax.set_xticks(xs)
     ax.invert_xaxis()
-    ax.tick_params(axis="both", labelsize=11)
-    ax.set_ylim(min(ys) - 2, 101)
+    ax.tick_params(axis="both", labelsize=13)
+    ax.set_ylim(min(ys) - 2, 100)
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.0f%%"))
     ax.grid(axis="y", color="#E2E8F0", linewidth=0.8)
     ax.spines[["top", "right"]].set_visible(False)
@@ -169,14 +173,12 @@ def plot_backward(baseline, steps, outfile="backward_accuracy.png"):
 def plot_comparison(fwd_baseline, fwd_steps, bwd_steps, outfile="accuracy_comparison.png"):
     fwd_best = max(s[1] for s in fwd_steps)
     bwd_best = max(s[1] for s in bwd_steps)
-    baseline  = fwd_baseline
+    baseline = fwd_baseline
 
     fwd_n = max(s[0] for s in fwd_steps if s[1] == fwd_best)
-    bwd_n = min(s[0] for s in bwd_steps if s[1] == bwd_best)
+    bwd_n = [s[0] for s in bwd_steps if s[1] == bwd_best][-1]
 
-    labels = ["Baseline\n(all 30 features)",
-              f"Forward Selection\n({fwd_n} features)",
-              f"Backward Elimination\n({bwd_n} features)"]
+    labels = ["Baseline", "Forward Selection", "Backward Elimination"]
     values = [baseline, fwd_best, bwd_best]
     colors = [GRAY, ACCENT, NAVY]
 
@@ -185,14 +187,14 @@ def plot_comparison(fwd_baseline, fwd_steps, bwd_steps, outfile="accuracy_compar
 
     for bar, val in zip(bars, values):
         ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05,
-                f"{val:.2f}%", ha="center", va="bottom", fontsize=13,
+                f"{val:.1f}%", ha="center", va="bottom", fontsize=13,
                 fontweight="bold", color="#1a1a2e")
 
     ax.set_ylabel("LOO-CV Accuracy (%)", fontsize=13)
     ax.set_title("Accuracy: Baseline vs. Feature-Selected",
-                 fontsize=15, fontweight="bold", color=NAVY, pad=15)
-    ax.tick_params(axis="both", labelsize=11)
-    ax.set_ylim(min(values) - 3, 101)
+                 fontsize=13, fontweight="bold", color=NAVY, pad=15)
+    ax.tick_params(axis="both", labelsize=13)
+    ax.set_ylim(min(values) - 3, 100)
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.0f%%"))
     ax.grid(axis="y", color="#E2E8F0", linewidth=0.8)
     ax.spines[["top", "right"]].set_visible(False)
@@ -202,7 +204,7 @@ def plot_comparison(fwd_baseline, fwd_steps, bwd_steps, outfile="accuracy_compar
     print(f"Saved: {outfile}")
 
 
-# ── Main ──────────────────────────────────────────────────────────────────
+# Main
 if len(sys.argv) != 3:
     print("Usage: python plot_accuracy.py forward_log.txt backward_log.txt")
     sys.exit(1)
@@ -213,8 +215,8 @@ bwd_file = sys.argv[2]
 fwd_baseline, fwd_steps = parse_log(fwd_file)
 bwd_baseline, bwd_steps = parse_log(bwd_file)
 
-print(f"Forward  — baseline: {fwd_baseline:.2f}%, best: {max(s[1] for s in fwd_steps):.2f}%, steps found: {len(fwd_steps)}")
-print(f"Backward — baseline: {bwd_baseline:.2f}%, best: {max(s[1] for s in bwd_steps):.2f}%, steps found: {len(bwd_steps)}")
+print(f"Forward  - baseline: {fwd_baseline:.1f}%, best: {max(s[1] for s in fwd_steps):.1f}%, steps found: {len(fwd_steps)}")
+print(f"Backward - baseline: {bwd_baseline:.1f}%, best: {max(s[1] for s in bwd_steps):.1f}%, steps found: {len(bwd_steps)}")
 
 plot_forward(fwd_baseline, fwd_steps)
 plot_backward(bwd_baseline, bwd_steps)
